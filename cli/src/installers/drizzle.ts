@@ -49,6 +49,14 @@ export const drizzleInstaller: Installer = ({
   );
   const configDest = path.join(projectDir, "drizzle.config.ts");
 
+  const configFileProd = path.join(
+    extrasDir,
+    `config/drizzle-config-${
+      databaseProvider === "planetscale" ? "mysql" : databaseProvider
+    }.prod.ts`
+  );
+  const configDestProd = path.join(projectDir, "drizzle.config.prod.ts");
+
   const schemaSrc = path.join(
     extrasDir,
     "src/server/db/schema-drizzle",
@@ -85,12 +93,18 @@ export const drizzleInstaller: Installer = ({
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:check": "drizzle-kit check",
+    "proddb:studio": "drizzle-kit studio --config drizzle.prod.config.ts",
+    "proddb:check": "drizzle-kit check --config drizzle.prod.config.ts",
+    "proddb:generate": "drizzle-kit generate --config drizzle.prod.config.ts",
+    "proddb:migrate": "drizzle-kit migrate --config drizzle.prod.config.ts",
   };
 
   fs.copySync(configFile, configDest);
   fs.mkdirSync(path.dirname(schemaDest), { recursive: true });
   fs.writeFileSync(schemaDest, schemaContent);
   fs.writeFileSync(configDest, configContent);
+  fs.copySync(configFileProd, configDestProd);
   fs.copySync(clientSrc, clientDest);
   fs.writeJSONSync(packageJsonPath, packageJsonContent, {
     spaces: 2,

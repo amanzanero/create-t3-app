@@ -80,17 +80,18 @@ const getEnvContent = (
   if (usingPrisma || usingDrizzle) {
     if (databaseProvider === "planetscale") {
       if (usingDrizzle) {
-        content += `# Get the Database URL from the "prisma" dropdown selector in PlanetScale. 
+        content += `# Get the Database URL from the "prisma" dropdown selector in PlanetScale.
 # Change the query params at the end of the URL to "?ssl={"rejectUnauthorized":true}"
 DATABASE_URL='mysql://YOUR_MYSQL_URL_HERE?ssl={"rejectUnauthorized":true}'`;
       } else {
-        content = `# Get the Database URL from the "prisma" dropdown selector in PlanetScale. 
+        content = `# Get the Database URL from the "prisma" dropdown selector in PlanetScale.
 DATABASE_URL='mysql://YOUR_MYSQL_URL_HERE?sslaccept=strict'`;
       }
     } else if (databaseProvider === "mysql") {
       content += `DATABASE_URL="mysql://root:password@localhost:3306/${projectName}"`;
     } else if (databaseProvider === "postgres") {
       content += `DATABASE_URL="postgresql://postgres:password@localhost:5432/${projectName}"`;
+      content += `PROD_DATABASE_URL="stuff"`;
     } else if (databaseProvider === "sqlite") {
       content += 'DATABASE_URL="file:./db.sqlite"';
     }

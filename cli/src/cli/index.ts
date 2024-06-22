@@ -253,6 +253,11 @@ export const runCli = async (): Promise<CliResults> => {
             message: "Will you be using Tailwind CSS for styling?",
           });
         },
+        shadcn: () => {
+          return p.confirm({
+            message: "Would you like to use Shadcn for your design system?",
+          });
+        },
         trpc: () => {
           return p.confirm({
             message: "Would you like to use tRPC?",
@@ -309,11 +314,6 @@ export const runCli = async (): Promise<CliResults> => {
             });
           },
         }),
-        shadcn: () => {
-          return p.confirm({
-            message: "Would you like to use Shadcn for your design system?",
-          });
-        },
         ...(!cliResults.flags.noInstall && {
           install: () => {
             return p.confirm({
