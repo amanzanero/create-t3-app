@@ -5,7 +5,7 @@ import { PKG_ROOT } from "~/consts.js";
 import { type Installer } from "~/installers/index.js";
 import { addPackageDependency } from "~/utils/addPackageDependency.js";
 
-export const tailwindInstaller: Installer = ({ projectDir }) => {
+export const tailwindInstaller: Installer = ({ projectDir, packages }) => {
   addPackageDependency({
     projectDir,
     dependencies: [
@@ -19,7 +19,10 @@ export const tailwindInstaller: Installer = ({ projectDir }) => {
 
   const extrasDir = path.join(PKG_ROOT, "template/extras");
 
-  const twCfgSrc = path.join(extrasDir, "config/tailwind.config.ts");
+  const twFile = packages?.shadcn.inUse
+    ? "tailwind-with-shadcn.config.ts"
+    : "tailwind.config.ts";
+  const twCfgSrc = path.join(extrasDir, `config/${twFile}`);
   const twCfgDest = path.join(projectDir, "tailwind.config.ts");
 
   const postcssCfgSrc = path.join(extrasDir, "config/postcss.config.cjs");
@@ -28,7 +31,8 @@ export const tailwindInstaller: Installer = ({ projectDir }) => {
   const prettierSrc = path.join(extrasDir, "config/_prettier.config.js");
   const prettierDest = path.join(projectDir, "prettier.config.js");
 
-  const cssSrc = path.join(extrasDir, "src/styles/globals.css");
+  const cssFile = packages?.shadcn.inUse ? "globals-shadcn.css" : "globals.css";
+  const cssSrc = path.join(extrasDir, `src/styles/${cssFile}`);
   const cssDest = path.join(projectDir, "src/styles/globals.css");
 
   fs.copySync(twCfgSrc, twCfgDest);

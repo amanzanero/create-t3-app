@@ -7,6 +7,7 @@ import { type PackageManager } from "~/utils/getUserPkgManager.js";
 import { dbContainerInstaller } from "./dbContainer.js";
 import { drizzleInstaller } from "./drizzle.js";
 import { dynamicEslintInstaller } from "./eslint.js";
+import { shadcnInstaller } from "./shadcn.js";
 
 // Turning this into a const allows the list to be iterated over for programmatically creating prompt options
 // Should increase extensibility in the future
@@ -19,6 +20,7 @@ export const availablePackages = [
   "envVariables",
   "eslint",
   "dbContainer",
+  "shadcn",
 ] as const;
 export type AvailablePackages = (typeof availablePackages)[number];
 
@@ -85,5 +87,9 @@ export const buildPkgInstallerMap = (
   eslint: {
     inUse: true,
     installer: dynamicEslintInstaller,
+  },
+  shadcn: {
+    inUse: true,
+    installer: shadcnInstaller,
   },
 });

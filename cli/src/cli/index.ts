@@ -309,6 +309,11 @@ export const runCli = async (): Promise<CliResults> => {
             });
           },
         }),
+        shadcn: () => {
+          return p.confirm({
+            message: "Would you like to use Shadcn for your design system?",
+          });
+        },
         ...(!cliResults.flags.noInstall && {
           install: () => {
             return p.confirm({

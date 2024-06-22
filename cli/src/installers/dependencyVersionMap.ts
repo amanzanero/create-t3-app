@@ -36,5 +36,12 @@ export const dependencyVersionMap = {
   "@tanstack/react-query": "^5.39.0",
   superjson: "^2.2.1",
   "server-only": "^0.0.1",
+
+  // Shadcn
+  "class-variance-authority": "^0.7.0",
+  clsx: "^2.1.1",
+  "lucide-react": "^0.396.0",
+  "tailwind-merge": "^2.3.0",
+  "tailwindcss-animate": "^1.0.7",
 } as const;
 export type AvailableDependencies = keyof typeof dependencyVersionMap;
